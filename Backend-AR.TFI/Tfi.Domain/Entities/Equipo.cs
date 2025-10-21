@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Equipo
+public partial class Equipo : EntityBase
 {
-    public int IdEquipo { get; set; }
-
     public int NumeroEquipo { get; set; }
 
     public virtual ICollection<Proyecto> Proyectos { get; set; } = new List<Proyecto>();

@@ -42,11 +42,11 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.IdCliente).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("cliente");
 
-            entity.Property(e => e.IdCliente).HasColumnName("idCliente");
+            entity.Property(e => e.Id).HasColumnName("idCliente");
             entity.Property(e => e.DireccionCliente)
                 .HasMaxLength(45)
                 .HasColumnName("direccionCliente");
@@ -67,13 +67,13 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Empleado>(entity =>
         {
-            entity.HasKey(e => e.IdEmpleado).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("empleado");
 
             entity.HasIndex(e => e.IdUsuario, "fk_empleado_usuario1_idx").IsUnique();
 
-            entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
+            entity.Property(e => e.Id).HasColumnName("idEmpleado");
             entity.Property(e => e.ApellidoEmpleado)
                 .HasMaxLength(45)
                 .HasColumnName("apellidoEmpleado");
@@ -124,23 +124,23 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Equipo>(entity =>
         {
-            entity.HasKey(e => e.IdEquipo).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("equipo");
 
-            entity.Property(e => e.IdEquipo).HasColumnName("idEquipo");
+            entity.Property(e => e.Id).HasColumnName("idEquipo");
             entity.Property(e => e.NumeroEquipo).HasColumnName("numeroEquipo");
         });
 
         modelBuilder.Entity<Funcionalidad>(entity =>
         {
-            entity.HasKey(e => e.IdFuncionalidad).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("funcionalidad");
 
             entity.HasIndex(e => e.IdProyecto, "fk_funcionalidad_proyecto1_idx");
 
-            entity.Property(e => e.IdFuncionalidad).HasColumnName("idFuncionalidad");
+            entity.Property(e => e.Id).HasColumnName("idFuncionalidad");
             entity.Property(e => e.DescripcionFuncionalidad)
                 .HasMaxLength(45)
                 .HasColumnName("descripcionFuncionalidad");
@@ -180,7 +180,7 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<HistorialCambio>(entity =>
         {
-            entity.HasKey(e => e.IdHistorialCambio).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("historial_cambio");
 
@@ -188,7 +188,7 @@ public partial class TfiContext : DbContext
 
             entity.HasIndex(e => e.IdProyecto, "fk_historial_funcionalidad_cambio_proyecto1_idx");
 
-            entity.Property(e => e.IdHistorialCambio).HasColumnName("idHistorial_cambio");
+            entity.Property(e => e.Id).HasColumnName("idHistorial_cambio");
             entity.Property(e => e.FechaCambio).HasColumnName("fechaCambio");
             entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
             entity.Property(e => e.IdProyecto).HasColumnName("idProyecto");
@@ -210,13 +210,13 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Incidencium>(entity =>
         {
-            entity.HasKey(e => e.IdIncidencia).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("incidencia");
 
             entity.HasIndex(e => e.IdProyecto, "fk_incidencia_proyecto1_idx");
 
-            entity.Property(e => e.IdIncidencia)
+            entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("idIncidencia");
             entity.Property(e => e.DescripcionIncidencia)
@@ -236,7 +236,7 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Proyecto>(entity =>
         {
-            entity.HasKey(e => e.IdProyecto).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("proyecto");
 
@@ -244,9 +244,8 @@ public partial class TfiContext : DbContext
 
             entity.HasIndex(e => e.IdEquipo, "fk_proyecto_equipo1_idx");
 
-            entity.Property(e => e.IdProyecto).HasColumnName("idProyecto");
+            entity.Property(e => e.Id).HasColumnName("idProyecto");
             entity.Property(e => e.EstadoProyecto)
-                .HasMaxLength(45)
                 .HasColumnName("estadoProyecto");
             entity.Property(e => e.FechaFinProyecto).HasColumnName("fechaFinProyecto");
             entity.Property(e => e.FechaInicioPreyecto).HasColumnName("fechaInicioPreyecto");
@@ -259,6 +258,11 @@ public partial class TfiContext : DbContext
             entity.Property(e => e.TipoProyecto)
                 .HasMaxLength(45)
                 .HasColumnName("tipoProyecto");
+            entity.Property(e => e.PrioridadProyecto)
+                  .HasColumnName("prioridadProyecto");
+            entity.Property(e => e.DescripcionProyecto)
+                  .HasMaxLength(150)
+                  .HasColumnName("prioridadProyecto");
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Proyectos)
                 .HasForeignKey(d => d.IdCliente)
@@ -273,11 +277,11 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Recurso>(entity =>
         {
-            entity.HasKey(e => e.IdRecurso).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("recurso");
 
-            entity.Property(e => e.IdRecurso).HasColumnName("idRecurso");
+            entity.Property(e => e.Id).HasColumnName("idRecurso");
             entity.Property(e => e.DescripcionRecurso)
                 .HasMaxLength(45)
                 .HasColumnName("descripcionRecurso");
@@ -308,7 +312,7 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Tarea>(entity =>
         {
-            entity.HasKey(e => e.IdTarea).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("tarea");
 
@@ -316,7 +320,7 @@ public partial class TfiContext : DbContext
 
             entity.HasIndex(e => e.IdFuncionalidad, "fk_tarea_funcionalidad1_idx");
 
-            entity.Property(e => e.IdTarea).HasColumnName("idTarea");
+            entity.Property(e => e.Id).HasColumnName("idTarea");
             entity.Property(e => e.DescripcionTarea)
                 .HasMaxLength(45)
                 .HasColumnName("descripcionTarea");
@@ -331,7 +335,6 @@ public partial class TfiContext : DbContext
                 .HasMaxLength(45)
                 .HasColumnName("nombreTarea");
             entity.Property(e => e.PrioridadTarea)
-                .HasMaxLength(45)
                 .HasColumnName("prioridadTarea");
 
             entity.HasOne(d => d.Empleado).WithMany(p => p.Tareas)
@@ -347,13 +350,13 @@ public partial class TfiContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("usuario");
 
             entity.HasIndex(e => e.NombreUsuario, "nombreUsuario_UNIQUE").IsUnique();
 
-            entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
+            entity.Property(e => e.Id).HasColumnName("idUsuario");
             entity.Property(e => e.ContraseniaUsuario)
                 .HasMaxLength(45)
                 .HasColumnName("contraseniaUsuario");

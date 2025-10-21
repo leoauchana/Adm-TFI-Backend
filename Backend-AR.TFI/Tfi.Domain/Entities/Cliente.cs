@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Cliente
+public partial class Cliente : EntityBase
 {
-    public int IdCliente { get; set; }
-
     public int Dni { get; set; }
 
     public string NombreCliente { get; set; } = null!;

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
+using Tfi.Domain.Enum;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Tarea
+public partial class Tarea : EntityBase
 {
-    public int IdTarea { get; set; }
-
     public int IdEmpleado { get; set; }
 
     public int IdFuncionalidad { get; set; }
@@ -15,7 +13,7 @@ public partial class Tarea
 
     public string DescripcionTarea { get; set; } = null!;
 
-    public string PrioridadTarea { get; set; } = null!;
+    public Prioridad PrioridadTarea { get; set; }
 
     public string EstadoTarea { get; set; } = null!;
 

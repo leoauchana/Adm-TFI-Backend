@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
+using Tfi.Domain.Enum;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Empleado
+public partial class Empleado : EntityBase
 {
-    public int IdEmpleado { get; set; }
-
     public int IdUsuario { get; set; }
 
     public int DniEmpleado { get; set; }
@@ -21,7 +19,7 @@ public partial class Empleado
 
     public string MailEmpleado { get; set; } = null!;
 
-    public int RolEmpleado { get; set; }
+    public RolEmpleado RolEmpleado { get; set; }
 
     public virtual ICollection<HistorialCambio> HistorialCambios { get; set; } = new List<HistorialCambio>();
 

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Recurso
+public partial class Recurso : EntityBase
 {
-    public int IdRecurso { get; set; }
-
     public string DescripcionRecurso { get; set; } = null!;
-
     public virtual ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
 }

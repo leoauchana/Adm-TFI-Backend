@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Funcionalidad
+public partial class Funcionalidad : EntityBase
 {
-    public int IdFuncionalidad { get; set; }
-
     public int IdProyecto { get; set; }
 
     public string NombreFuncionalidad { get; set; } = null!;

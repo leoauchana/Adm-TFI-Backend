@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class HistorialCambio
+public partial class HistorialCambio : EntityBase
 {
-    public int IdHistorialCambio { get; set; }
-
     public int IdProyecto { get; set; }
 
     public int IdEmpleado { get; set; }

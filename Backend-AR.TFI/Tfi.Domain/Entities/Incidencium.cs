@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
-public partial class Incidencium
+public partial class Incidencium : EntityBase
 {
-    public int IdIncidencia { get; set; }
-
     public int IdProyecto { get; set; }
 
     public string TipoIncidencia { get; set; } = null!;
