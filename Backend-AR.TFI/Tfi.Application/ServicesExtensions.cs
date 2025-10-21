@@ -1,6 +1,13 @@
-﻿namespace Tfi.Application;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Tfi.Application.Interfaces;
+using Tfi.Application.Services;
 
-public class ServicesExtensions
+namespace Tfi.Application;
+
+public static class ServicesExtensions
 {
-
+    public static void AddApplicationServices(this IServiceCollection services)
+    {
+        services.AddScoped<IProyectsService, ProyectsService>();
+    }
 }
