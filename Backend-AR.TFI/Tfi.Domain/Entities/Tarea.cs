@@ -15,7 +15,7 @@ public partial class Tarea : EntityBase
 
     public Prioridad PrioridadTarea { get; set; }
 
-    public string EstadoTarea { get; set; } = null!;
+    public EstadoAvance EstadoTarea { get; set; };
 
     public DateOnly FechaInicioTarea { get; set; }
 

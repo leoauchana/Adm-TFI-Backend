@@ -10,7 +10,7 @@ public partial class Proyecto : EntityBase
     public string NombreProyecto { get; set; } = null!;
     public string DescripcionProyecto { get; set; } = null!;
     public string TipoProyecto { get; set; } = null!;
-    public EstadoProyecto EstadoProyecto { get; set; }
+    public EstadoAvance EstadoProyecto { get; set; }
     public DateOnly FechaInicioPreyecto { get; set; }
     public DateOnly FechaFinProyecto { get; set; }
     public double PresupuestoProyecto { get; set; }

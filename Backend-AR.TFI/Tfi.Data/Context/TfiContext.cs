@@ -325,7 +325,6 @@ public partial class TfiContext : DbContext
                 .HasMaxLength(45)
                 .HasColumnName("descripcionTarea");
             entity.Property(e => e.EstadoTarea)
-                .HasMaxLength(45)
                 .HasColumnName("estadoTarea");
             entity.Property(e => e.FechaFinTarea).HasColumnName("fechaFinTarea");
             entity.Property(e => e.FechaInicioTarea).HasColumnName("fechaInicioTarea");
@@ -358,7 +357,7 @@ public partial class TfiContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("idUsuario");
             entity.Property(e => e.ContraseniaUsuario)
-                .HasMaxLength(45)
+                .HasMaxLength(65)
                 .HasColumnName("contraseniaUsuario");
             entity.Property(e => e.NombreUsuario)
                 .HasMaxLength(45)

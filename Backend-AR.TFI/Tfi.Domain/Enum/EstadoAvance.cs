@@ -1,6 +1,6 @@
 ﻿namespace Tfi.Domain.Enum;
 
-public enum EstadoProyecto
+public enum EstadoAvance
 {
     En_Curso = 0,
     Completado,

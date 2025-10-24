@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -15,15 +16,36 @@ public class ProyectsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult RegisterProyect([FromBody] ProyectDto.Request request)
+    public async Task<IActionResult> RegisterProyect([FromBody] ProyectDto.Request newProyect)
     {
-        return BadRequest();
+        var proyectRegistered = await _proyectsService.AddProyect(newProyect);
+        return Ok(new
+        {
+            Message = "Proyecto registrado con exito",
+            proyectRegistered
+        });
     }
-
-    [HttpGet]
-    public IActionResult GetProyects()
+    [HttpGet("getAllProyects")]
+    public async Task<IActionResult> GetProyects()
     {
-        return Ok();
+        var proyectsList = await _proyectsService.GetAll();
+        if (proyectsList == null) return BadRequest("Hubo un error al obtener los proyectos.");
+        return Ok(new
+        {
+            Message = "Proyectos registrados.",
+            proyectsList
+        });
+    }
+    [HttpGet("getById{idProyect}")]
+    public async Task<IActionResult> GetById(int idProyect)
+    {
+        var proyect = await _proyectsService.GetById(idProyect);
+        if (proyect == null) return BadRequest($"Hubo un error al obtener el proyecto de id {idProyect}");
+        return Ok(new
+        {
+            Message = "Proyecto encontrado con exito.",
+            proyect
+        });
     }
 
     [HttpDelete("deleteProyect{id}")]
