@@ -9,5 +9,6 @@ public static class ServicesExtensions
     public static void AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IProyectsService, ProyectsService>();
+        services.AddScoped<IIncidencesService, IncidencesService>();
     }
 }

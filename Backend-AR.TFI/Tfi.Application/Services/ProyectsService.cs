@@ -3,6 +3,7 @@ using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
 using Tfi.Domain.Entities;
+using Tfi.Domain.Enum;
 using Tfi.Domain.Repository;
 
 namespace Tfi.Application.Services;
@@ -36,9 +37,11 @@ public class ProyectsService : IProyectsService
     }
     public async Task<List<ProyectDto.Response>?> GetAll()
     {
-        var proyectsRegistered = await _repository.ListarTodos<Proyecto>(nameof(Proyecto.Funcionalidades), nameof(Cliente), nameof(Equipo));
+        var proyectsRegistered = await _repository
+                                        .ListarTodos<Proyecto>(nameof(Proyecto.Funcionalidades), nameof(Cliente), nameof(Equipo));
         if (proyectsRegistered == null) throw new NullException("No hay proyectos registrados.");
         var proyectsList = proyectsRegistered
+                                    .Where(p => p.EstadoProyecto != EstadoAvance.Cancelado)
                                     .Select(p => _mapper.Map<Proyecto, ProyectDto.Response>(p))
                                     .ToList();
         return proyectsList;
