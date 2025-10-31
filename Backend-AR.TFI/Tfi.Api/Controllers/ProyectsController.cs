@@ -48,15 +48,27 @@ public class ProyectsController : ControllerBase
         });
     }
 
-    [HttpDelete("deleteProyect{id}")]
-    public IActionResult DeleteProyect(int id)
+    [HttpPatch("deleteProyect{idProyect}")]
+    public async Task<IActionResult> DeleteProyect(int idProyect)
     {
-        return BadRequest();
+        var proyectDeleted = await _proyectsService.DeleteProyect(idProyect);
+        if (proyectDeleted == null) return BadRequest("Hubo un error al dar de baja el proyecto.");
+        return Ok(new
+        {
+            Message = "Proyecto dado de baja exitosamente.",
+            proyectDeleted
+        });
     }
 
-    [HttpPut("updateProyect{id}")]
-    public IActionResult UpdateProyect(int id)
+    [HttpPatch("updateProyect")]
+    public async Task<IActionResult> UpdateProyect([FromBody] ProyectDto.RequestUpdate proyectData)
     {
-        return BadRequest();
+        var proyectUpdated = await _proyectsService.UpdateProyect(proyectData);
+        if (proyectUpdated == null) return BadRequest("Hubo un error al actualizar el proyecto.");
+        return Ok(new
+        {
+            Message = "Proyecto modificado con éxito.",
+            proyectUpdated
+        });
     }
 }

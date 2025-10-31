@@ -10,5 +10,7 @@ public static class ServicesExtensions
     {
         services.AddScoped<IProyectsService, ProyectsService>();
         services.AddScoped<IIncidencesService, IncidencesService>();
+        services.AddScoped<IClientsService, ClientsService>();
+        services.AddScoped<ITeamsService, TeamsService>();
     }
 }

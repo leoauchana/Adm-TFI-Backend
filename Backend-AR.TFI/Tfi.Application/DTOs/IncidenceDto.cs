@@ -2,6 +2,6 @@
 
 public class IncidenceDto
 {
-    public record Request();
-    public record Response();
+    public record Request(int idProyect, string typeIncidence, string descriptionIncidence);
+    public record Response(string typeIncidence, string descriptionIncidence);
 }

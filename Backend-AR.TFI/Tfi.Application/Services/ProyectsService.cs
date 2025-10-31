@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
 using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
@@ -35,6 +36,16 @@ public class ProyectsService : IProyectsService
         await _repository.Agregar(newProyect);
         return _mapper.Map<Proyecto, ProyectDto.Response>(newProyect);
     }
+
+    public async Task<ProyectDto.Response?> DeleteProyect(int idProyect)
+    {
+        var proyectFound = await _repository.ObtenerPorId<Proyecto>(idProyect);
+        if (proyectFound == null) throw new EntityNotFoundException($"No se encontro el proyecto con {idProyect}");
+        proyectFound.EstadoProyecto = EstadoAvance.Cancelado;
+        await _repository.Actualizar(proyectFound);
+        return _mapper.Map<Proyecto, ProyectDto.Response>(proyectFound);
+    }
+
     public async Task<List<ProyectDto.Response>?> GetAll()
     {
         var proyectsRegistered = await _repository
@@ -50,6 +61,16 @@ public class ProyectsService : IProyectsService
     {
         var proyectFound = await _repository.ObtenerPorId<Proyecto>(idProyect);
         if (proyectFound == null) throw new EntityNotFoundException($"No se encontro el proyecto con id {idProyect}");
+        return _mapper.Map<Proyecto, ProyectDto.Response>(proyectFound);
+    }
+
+    public async Task<ProyectDto.Response?> UpdateProyect(ProyectDto.RequestUpdate proyectData)
+    {
+        var proyectFound = await _repository.ObtenerPorId<Proyecto>(proyectData.idProyect);
+        if (proyectFound == null) throw new EntityNotFoundException($"No se encontró el proyecto con id {proyectData.idProyect}");
+        proyectFound.DescripcionProyecto = proyectData.newDescriptionProyect;
+        proyectFound.PresupuestoProyecto = proyectData.newBudgetProyect;
+        await _repository.Actualizar(proyectFound);
         return _mapper.Map<Proyecto, ProyectDto.Response>(proyectFound);
     }
 }
