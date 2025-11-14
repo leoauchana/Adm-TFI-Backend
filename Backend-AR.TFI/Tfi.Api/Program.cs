@@ -1,6 +1,8 @@
-
+using Tfi.Application;
+using Tfi.Data;
 using Mapster;
 using Tfi.Application.Map;
+using Tfi.Api.Middleware;
 
 namespace Tfi.Api
 {
@@ -16,13 +18,21 @@ namespace Tfi.Api
 
             builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddSwaggerGen();
+            //builder.Services.AddSwaggerGen();
+
+            builder.Services.AddApplicationServices();
+
+            builder.Services.AddDataServices(builder.Configuration);
 
             var app = builder.Build();
 
             MappingConfig.RegisterConfig();
             
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ExceptionMiddleware>();
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

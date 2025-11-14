@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -7,16 +6,16 @@ namespace Tfi.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProyectsController : ControllerBase
+public class ProjectsController : ControllerBase
 {
     private readonly IProyectsService _proyectsService;
-    public ProyectsController(IProyectsService proyectsService)
+    public ProjectsController(IProyectsService proyectsService)
     {
         _proyectsService = proyectsService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> RegisterProyect([FromBody] ProyectDto.Request newProyect)
+    public async Task<IActionResult> RegisterProyect([FromBody] ProjectDto.Request newProyect)
     {
         var proyectRegistered = await _proyectsService.AddProyect(newProyect);
         return Ok(new
@@ -36,7 +35,7 @@ public class ProyectsController : ControllerBase
             proyectsList
         });
     }
-    [HttpGet("getById{idProyect}")]
+    [HttpGet("getById/{idProyect}")]
     public async Task<IActionResult> GetById(int idProyect)
     {
         var proyect = await _proyectsService.GetById(idProyect);
@@ -48,7 +47,7 @@ public class ProyectsController : ControllerBase
         });
     }
 
-    [HttpPatch("deleteProyect{idProyect}")]
+    [HttpPatch("deleteProyect/{idProyect}")]
     public async Task<IActionResult> DeleteProyect(int idProyect)
     {
         var proyectDeleted = await _proyectsService.DeleteProyect(idProyect);
@@ -61,7 +60,7 @@ public class ProyectsController : ControllerBase
     }
 
     [HttpPatch("updateProyect")]
-    public async Task<IActionResult> UpdateProyect([FromBody] ProyectDto.RequestUpdate proyectData)
+    public async Task<IActionResult> UpdateProyect([FromBody] ProjectDto.RequestUpdate proyectData)
     {
         var proyectUpdated = await _proyectsService.UpdateProyect(proyectData);
         if (proyectUpdated == null) return BadRequest("Hubo un error al actualizar el proyecto.");

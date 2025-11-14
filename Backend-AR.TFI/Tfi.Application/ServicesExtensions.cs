@@ -8,7 +8,7 @@ public static class ServicesExtensions
 {
     public static void AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IProyectsService, ProyectsService>();
+        services.AddScoped<IProyectsService, ProjectsService>();
         services.AddScoped<IIncidencesService, IncidencesService>();
         services.AddScoped<IClientsService, ClientsService>();
         services.AddScoped<ITeamsService, TeamsService>();

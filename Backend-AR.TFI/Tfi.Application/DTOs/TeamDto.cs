@@ -2,5 +2,5 @@
 
 public class TeamDto
 {
-    public record Response(int numberTeam, List<EmployeeDto.Response> employees);
+    public record Response(int numberTeam, List<EmployeeDto.Response>? employees);
 }

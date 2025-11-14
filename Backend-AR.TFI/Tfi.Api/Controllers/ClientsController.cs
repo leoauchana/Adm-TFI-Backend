@@ -11,12 +11,16 @@ public class ClientsController : ControllerBase
 	public ClientsController(IClientsService clientsService)
 	{
 		_clientsService = clientsService;
-	} 
+	}
+	[HttpGet("getAll")]
 	public async Task<IActionResult> GetAll()
 	{
+		var clientsRegistered = await _clientsService.GetAll();
+		if (clientsRegistered == null) return BadRequest("Hubo un error al obtener los clientes registrados.");
 		return Ok(new
 		{
-			Message = "Clientes registrados."
+			Message = "Clientes registrados.",
+			clientsRegistered
 		});
 	}
 }

@@ -11,12 +11,9 @@ public static class ServicesExtensions
     public static void AddDataServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IRepository, Repository.Repository>();
-        services.AddDbContext<TfiContext>(options =>
+        services.AddDbContext<ARContext>(options =>
         {
-            var connectionString = configuration.GetConnectionString("DbMySql");
-
-            options.UseMySql(connectionString,
-            ServerVersion.AutoDetect(connectionString));
+            options.UseSqlServer(configuration.GetConnectionString("ConnectionSqlServer"));
         });
     }
 }

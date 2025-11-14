@@ -13,7 +13,7 @@ public class IncidenceController : ControllerBase
 	{
 		_incidencesService = incidencesService;
 	}
-	[HttpGet("getAllIncidendes{idProyect}")]
+	[HttpGet("getAllIncidendes/{idProyect}")]
 	public async Task<IActionResult> GetIncidences(int idProyect)
 	{
 		var incidencesRegistered = await _incidencesService.GetIncidences(idProyect);

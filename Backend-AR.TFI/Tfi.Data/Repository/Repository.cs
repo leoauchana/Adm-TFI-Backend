@@ -8,8 +8,8 @@ namespace Tfi.Data.Repository;
 
 public class Repository : IRepository
 {
-    private readonly TfiContext _context;
-    public Repository(TfiContext context)
+    private readonly ARContext _context;
+    public Repository(ARContext context)
     {
         _context = context;
     }

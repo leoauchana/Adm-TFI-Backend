@@ -9,68 +9,69 @@ public static class MappingConfig
 {
     public static void RegisterConfig()
     {
-        TypeAdapterConfig<FunctionsDto.Request, Funcionalidad>
+        TypeAdapterConfig<FunctionsDto.Request, Function>
             .NewConfig()
-            .Map(dest => dest.NombreFuncionalidad, src => src.functionName)
-            .Map(dest => dest.DescripcionFuncionalidad, src => src.functionDescription);
+            .Map(dest => dest.Name, src => src.functionName)
+            .Map(dest => dest.Description, src => src.functionDescription);
 
-        TypeAdapterConfig<ProyectDto.Request, Proyecto>
+        TypeAdapterConfig<ProjectDto.Request, Proyect>
             .NewConfig()
-            .Map(dest => dest.NombreProyecto, src => src.nameProyect)
-            .Map(dest => dest.DescripcionProyecto, src => src.descriptionProyect)
-            .Map(dest => dest.PresupuestoProyecto, src => src.budgetProyect)
-            .Map(dest => dest.FechaFinProyecto, src => src.dateEnd)
-            .Map(dest => dest.TipoProyecto, src => src.typeProyect)
-            .Map(dest => dest.PrioridadProyecto, src => src.priorityProyect)
-            .Map(dest => dest.EstadoProyecto, src => EstadoAvance.En_Curso)
-            .Map(dest => dest.IdCliente, src => src.idClient)
-            .Map(dest => dest.IdEquipo, src => src.idTeam)
-            .Map(dest => dest.FechaInicioPreyecto, src => DateOnly.FromDateTime(DateTime.UtcNow))
-            .Map(dest => dest.Funcionalidades, src => src.functions.Adapt<List<Funcionalidad>>());
+            .Map(dest => dest.Name, src => src.nameProject)
+            .Map(dest => dest.Description, src => src.descriptionProject)
+            .Map(dest => dest.Budget, src => src.budgetProject)
+            .Map(dest => dest.DateEnd, src => src.dateEnd)
+            .Map(dest => dest.Type, src => src.typeProject)
+            .Map(dest => dest.Priority, src => src.priorityProject)
+            .Map(dest => dest.State, src => StateProgress.In_Progress)
+            .Map(dest => dest.ClientId, src => src.idClient)
+            .Map(dest => dest.TeamId, src => src.idTeam)
+            .Map(dest => dest.DateInitial, src => DateTime.UtcNow)
+            .Map(dest => dest.Functions, src => src.functions);
 
-        TypeAdapterConfig<Proyecto, ProyectDto.Response>
-            .NewConfig().Map(dest => dest.nameProyect, src => src.NombreProyecto)
-            .Map(dest => dest.descriptionProyect, src => src.DescripcionProyecto)
-            .Map(dest => dest.budgetProyect, src => src.PresupuestoProyecto)
-            .Map(dest => dest.dateEnd, src => src.FechaFinProyecto)
-            .Map(dest => dest.typeProyect, src => src.TipoProyecto)
-            .Map(dest => dest.priorityProyect, src => src.PrioridadProyecto.ToString())
-            .Map(dest => dest.stateProyect, src => src.EstadoProyecto.ToString())
-            .Map(dest => dest.client, src => src.Cliente)
-            .Map(dest => dest.numberTeam, src => src.Equipo.NumeroEquipo)
-            .Map(dest => dest.dataInitial, src => src.FechaInicioPreyecto)
-            .Map(dest => dest.client, src => src.Cliente.Adapt<ClientDto.Response>());
+        TypeAdapterConfig<Proyect, ProjectDto.Response>
+            .NewConfig().Map(dest => dest.nameProject, src => src.Name)
+            .Map(dest => dest.descriptionProject, src => src.Description)
+            .Map(dest => dest.budgetProject, src => src.Budget)
+            .Map(dest => dest.dateEnd, src => src.DateEnd)
+            .Map(dest => dest.typeProject, src => src.Type)
+            .Map(dest => dest.priorityProject, src => src.Priority.ToString())
+            .Map(dest => dest.stateProject, src => src.State.ToString())
+            .Map(dest => dest.client, src => src.Client)
+            .Map(dest => dest.dataInitial, src => src.DateInitial)
+            .Map(dest => dest.client, src => src.Client)
+            .Map(dest => dest.team, src => src.Team)
+            .Map(dest => dest.incidencesList, src => src.Incidences);
 
-        TypeAdapterConfig<Cliente, ClientDto.Response>
+        TypeAdapterConfig<Client, ClientDto.Response>
             .NewConfig()
-            .Map(dest => dest.fullNameClient, src => src.NombreCliente)
-            .Map(dest => dest.mailClient, src => src.MailCliente)
+            .Map(dest => dest.fullNameClient, src => src.Name)
+            .Map(dest => dest.mailClient, src => src.Mail)
             .Map(dest => dest.dniClient, src => src.Dni)
-            .Map(dest => dest.directionClient, src => src.DireccionCliente)
-            .Map(dest => dest.phoneClient, src => src.TelefonoCliente);
+            .Map(dest => dest.directionClient, src => src.Direction)
+            .Map(dest => dest.phoneClient, src => src.Phone);
 
-        TypeAdapterConfig<Equipo, TeamDto.Response>
+        TypeAdapterConfig<Team, TeamDto.Response>
             .NewConfig()
-            .Map(dest => dest.numberTeam, src => src.NumeroEquipo)
-            .Map(dest => dest.employees, src => src.Empleados.Adapt<List<EmployeeDto.Response>>());
+            .Map(dest => dest.numberTeam, src => src.Number)
+            .Map(dest => dest.employees, src => src.Employees);
 
-        TypeAdapterConfig<Empleado, EmployeeDto.Response>
+        TypeAdapterConfig<Employee, EmployeeDto.Response>
             .NewConfig()
-            .Map(dest => dest.nameEmployee, src => src.NombreEmpleado)
-            .Map(dest => dest.lastNameEmployee, src => src.ApellidoEmpleado)
-            .Map(dest => dest.dniEmployee, src => src.DniEmpleado)
+            .Map(dest => dest.nameEmployee, src => src.Name)
+            .Map(dest => dest.lastNameEmployee, src => src.LastName)
+            .Map(dest => dest.dniEmployee, src => src.Dni)
             .Map(dest => dest.rolEmployee, src => src.RolEmpleado.ToString());
 
-        TypeAdapterConfig<IncidenceDto.Request, Incidencium>
+        TypeAdapterConfig<IncidenceDto.Request, Incidence>
             .NewConfig()
-            .Map(dest => dest.DescripcionIncidencia, src => src.descriptionIncidence)
-            .Map(dest => dest.TipoIncidencia, src => src.typeIncidence)
-            .Map(dest => dest.IdProyecto, src => src.idProyect)
-            .Map(dest => dest.FechaIncidencia, src => DateOnly.FromDateTime(DateTime.UtcNow));
+            .Map(dest => dest.Description, src => src.descriptionIncidence)
+            .Map(dest => dest.Type, src => src.typeIncidence)
+            .Map(dest => dest.ProyectId, src => src.idProyect)
+            .Map(dest => dest.RegisterDate, src => DateTime.UtcNow);
 
-        TypeAdapterConfig<Incidencium, IncidenceDto.Response>
+        TypeAdapterConfig<Incidence, IncidenceDto.Response>
             .NewConfig()
-            .Map(dest => dest.descriptionIncidence, src => src.DescripcionIncidencia)
-            .Map(dest => dest.typeIncidence, src => src.TipoIncidencia);
+            .Map(dest => dest.descriptionIncidence, src => src.Description)
+            .Map(dest => dest.typeIncidence, src => src.Type);
     }
 }

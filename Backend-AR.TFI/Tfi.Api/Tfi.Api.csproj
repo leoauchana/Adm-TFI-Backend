@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tfi.Application\Tfi.Application.csproj" />
-    <ProjectReference Include="..\Tfi.Data\Tfi.Data.csproj" />
+	<ProjectReference Include="..\Tfi.Data\Tfi.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,10 +19,10 @@ public class ClientsService : IClientsService
 	}
 	public async Task<List<ClientDto.Response>?> GetAll()
 	{
-		var clientsRegistered = await _repository.ListarTodos<Cliente>();
+		var clientsRegistered = await _repository.ListarTodos<Client>();
 		if (clientsRegistered == null) throw new NullException("No hay clientes registrados.");
 		return clientsRegistered
-				.Select(c => _mapper.Map<Cliente, ClientDto.Response>(c))
+				.Select(c => _mapper.Map<Client, ClientDto.Response>(c))
 				.ToList();
 	}
 }
