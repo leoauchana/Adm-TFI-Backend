@@ -51,7 +51,7 @@ public class ProjectsController : ControllerBase
     public async Task<IActionResult> DeleteProyect(int idProyect)
     {
         var proyectDeleted = await _proyectsService.DeleteProyect(idProyect);
-        if (proyectDeleted == null) return BadRequest("Hubo un error al dar de baja el proyecto.");
+        if (!proyectDeleted) return BadRequest("Hubo un error al dar de baja el proyecto.");
         return Ok(new
         {
             Message = "Proyecto dado de baja exitosamente.",
@@ -68,6 +68,17 @@ public class ProjectsController : ControllerBase
         {
             Message = "Proyecto modificado con éxito.",
             proyectUpdated
+        });
+    }
+    [HttpGet("getHistoryById/{idProject}")]
+    public async Task<IActionResult> GetHistoryById(int idProject)
+    {
+        var projectWithHistory = await _proyectsService.GetHistoryById(idProject);
+        if (projectWithHistory == null) return BadRequest($"Hubo un error al obtener el proyecto de id {idProject}");
+        return Ok(new
+        {
+            Message = "Proyecto encontrado con exito.",
+            projectWithHistory
         });
     }
 }

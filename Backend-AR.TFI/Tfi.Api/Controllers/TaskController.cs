@@ -19,7 +19,8 @@ public class TaskController : ControllerBase
         var taskRegistered = await _taskService.AddTask(taskData);
         if (taskRegistered == null) return BadRequest("Hubo un error al registrar la tarea.");
         return Ok(new {
-            Message = "Tarea registrada con éxito."
+            Message = "Tarea registrada con éxito.",
+            taskRegistered
         });
     }
 }
