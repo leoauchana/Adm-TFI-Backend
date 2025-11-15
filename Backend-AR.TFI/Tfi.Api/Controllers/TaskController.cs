@@ -23,4 +23,25 @@ public class TaskController : ControllerBase
             taskRegistered
         });
     }
+    [HttpPatch("deleteTask/{idTask}")]
+    public async Task<IActionResult> DeleteTask(int idTask)
+    {
+        var isSuccess = await _taskService.DeleteTask(idTask);
+        if (!isSuccess) return BadRequest("Hubo un error al dar de baja el proyecto.");
+        return Ok(new
+        {
+            Message = "Tarea dada de baja exitosamente.",
+        });
+    }
+
+    [HttpPatch("completeTask/{idTask}")]
+    public async Task<IActionResult> CompleteTask(int idTask)
+    {
+        var isSuccess = await _taskService.CompleteTask(idTask);
+        if (!isSuccess) return BadRequest("Hubo un error al actualizar el proyecto.");
+        return Ok(new
+        {
+            Message = "Tarea modifcado al estado completada con éxito.",
+        });
+    }
 }

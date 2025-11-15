@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
+using Tfi.Application.Services;
 
 namespace Tfi.Api.Controllers;
 
@@ -23,4 +25,15 @@ public class ClientsController : ControllerBase
 			clientsRegistered
 		});
 	}
+    [HttpGet("getByIdWithProjects/{idClient}")]
+    public async Task<IActionResult> GetByIdWithProjects(int idClient)
+    {
+        var clientFound = await _clientsService.GetByIdWithProjects(idClient);
+        if (clientFound == null) return BadRequest("Hubo un error al obtener los clientes registrados.");
+        return Ok(new
+        {
+            Message = "Clientes registrado con sus projectos",
+            clientFound
+        });
+    }
 }
