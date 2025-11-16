@@ -1,0 +1,292 @@
+[{
+    "Modulo":"Proyectos"
+}
+,{
+
+    "Endpoint":"Projects/getAll",
+    "message": "Proyectos registrados.",
+    "proyectsList": [
+        {
+            "idProject": 5,
+            "nameProject": "GymAfg",
+            "typeProject": "Escritorio",
+            "dateInitial": "2025-11-12T04:07:23.5393482",
+            "dateEnd": "0001-01-01",
+            "priorityProject": "High",
+            "stateProject": "In_Progress",
+            "budgetProject": 3000000,
+            "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta, baja y modificación. Que permita gestionar los clientes con sus correspondientes membresías y que el ingreso se realice mediante la comunicacion con un sensor de huella digital.",
+            "clientName": "Milagros Albornoz",
+            "teamNumber": 101,
+            "functions": [
+                {
+                    "functionName": "Gestion de empleados",
+                    "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema."
+                },
+                {
+                    "functionName": "Gestion de Clientes",
+                    "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente."
+                },
+                {
+                    "functionName": "Integracion con sensor",
+                    "functionDescription": "Debe poder comunicarse y controlar el ingreso de los clientes mediante la huella digital registrada por el mismo."
+                }
+            ]
+        },
+        {
+            "idProject": 6,
+            "nameProject": "ColosseoGym",
+            "typeProject": "Escritorio",
+            "dateInitial": "2025-11-15T00:50:36.6352983",
+            "dateEnd": "2025-11-25",
+            "priorityProject": "Medium",
+            "stateProject": "In_Progress",
+            "budgetProject": 300000,
+            "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta y baja. Que permita gestionar los clientes y la administración con el proveedor de suplementos y bebidas.",
+            "clientName": "Agustin Marchesin",
+            "teamNumber": 107,
+            "functions": [
+                {
+                    "functionName": "Gestion de empleados",
+                    "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema."
+                },
+                {
+                    "functionName": "Gestion de Clientes",
+                    "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente."
+                },
+                {
+                    "functionName": "Administracion proveedor",
+                    "functionDescription": "Debe poder gestionar una comunicacion con el proveedor para solicitar los productos necesarios de suplementación."
+                },
+                {
+                    "functionName": "Administracion de proveedor de bebidas.",
+                    "functionDescription": "Debe permitir omitir pedidos al proveedor de bebidas."
+                }
+            ]
+        }
+    ]
+},
+{
+    "Endpoint":"Projects/getById/6",
+    "message": "Proyecto encontrado con exito.",
+    "proyect": {
+        "idProject": 6,
+        "nameProject": "ColosseoGym",
+        "typeProject": "Escritorio",
+        "dateInitial": "2025-11-15T00:50:36.6352983",
+        "dateEnd": "2025-11-25",
+        "priorityProject": "Medium",
+        "stateProject": "In_Progress",
+        "budgetProject": 300000,
+        "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta y baja. Que permita gestionar los clientes y la administración con el proveedor de suplementos y bebidas.",
+        "client": {
+            "fullNameClient": "Agustin Marchesin",
+            "dniClient": 38784522,
+            "directionClient": "La boca",
+            "mailClient": "marche@gmail.com",
+            "phoneClient": "387411032"
+        },
+        "team": {
+            "numberTeam": 107,
+            "employees": []
+        },
+        "incidencesList": [],
+        "functions": [
+            {
+                "functionName": "Gestion de empleados",
+                "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema.",
+                "tasks": []
+            },
+            {
+                "functionName": "Gestion de Clientes",
+                "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente.",
+                "tasks": []
+            },
+            {
+                "functionName": "Administracion proveedor",
+                "functionDescription": "Debe poder gestionar una comunicacion con el proveedor para solicitar los productos necesarios de suplementación.",
+                "tasks": []
+            },
+            {
+                "functionName": "Administracion de proveedor de bebidas.",
+                "functionDescription": "Debe permitir omitir pedidos al proveedor de bebidas.",
+                "tasks": []
+            }
+        ]
+    }
+},
+{
+    "Endpoint":"Projects/getHistoryById/6",
+    "message": "Proyecto encontrado con exito.",
+    "projectWithHistory": {
+        "nameProject": "ColosseoGym",
+        "typeProject": "Escritorio",
+        "budgetProject": 300000,
+        "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta y baja. Que permita gestionar los clientes y la administración con el proveedor de suplementos y bebidas.",
+        "newEndDate": "2025-11-25",
+        "historyList": [
+            {
+                "changeReason": "Nuevo requisito del cliente.",
+                "oldBudget": 150000,
+                "oldFunctions": [
+                    {
+                        "functionName": "Gestion de empleados",
+                        "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema."
+                    },
+                    {
+                        "functionName": "Gestion de Clientes",
+                        "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente."
+                    },
+                    {
+                        "functionName": "Administracion proveedor",
+                        "functionDescription": "Debe poder gestionar una comunicacion con el proveedor para solicitar los productos necesarios de suplementación."
+                    },
+                    {
+                        "functionName": "Administracion de proveedor de bebidas.",
+                        "functionDescription": "Debe permitir omitir pedidos al proveedor de bebidas."
+                    }
+                ],
+                "changeDate": "2025-11-15"
+            }
+        ]
+    }
+},
+{
+    "Modulo" : "Clientes"
+},
+{
+    "Endpoint":"Clients/getAll",
+    "message": "Clientes registrados.",
+    "clientsRegistered": [
+        {
+            "fullNameClient": "Milagros Albornoz",
+            "dniClient": 46652333,
+            "directionClient": "Lopez 123",
+            "mailClient": "lucias@gmail.com",
+            "phoneClient": "381215102"
+        },
+        {
+            "fullNameClient": "Melisa Berrondo",
+            "dniClient": 42988748,
+            "directionClient": "Tafi Viejo",
+            "mailClient": "melisab@gmail.com",
+            "phoneClient": "381200369"
+        },
+        {
+            "fullNameClient": "Agustin Marchesin",
+            "dniClient": 38784522,
+            "directionClient": "La boca",
+            "mailClient": "marche@gmail.com",
+            "phoneClient": "387411032"
+        },
+        {
+            "fullNameClient": "Fernando Gago",
+            "dniClient": 42988748,
+            "directionClient": "Lazaro 45",
+            "mailClient": "gago@gmail.com",
+            "phoneClient": "386598620"
+        }
+    ]
+}
+,
+{
+    "Endpoint":"Clients/getByIdWithProjects/5",
+    "message": "Clientes registrado con sus projectos",
+    "clientFound": {
+        "fullNameClient": "Agustin Marchesin",
+        "dniClient": 38784522,
+        "directionClient": "La boca",
+        "mailClient": "marche@gmail.com",
+        "phoneClient": "387411032",
+        "projects": [
+            {
+                "idProject": 6,
+                "nameProject": "ColosseoGym",
+                "typeProject": "Escritorio",
+                "dateInitial": "2025-11-15T00:50:36.6352983",
+                "dateEnd": "2025-11-25",
+                "priorityProject": "Medium",
+                "stateProject": "In_Progress",
+                "budgetProject": 300000,
+                "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta y baja. Que permita gestionar los clientes y la administración con el proveedor de suplementos y bebidas.",
+                "clientName": "Agustin Marchesin",
+                "teamNumber": 107,
+                "functions": [
+                    {
+                        "functionName": "Gestion de empleados",
+                        "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema."
+                    },
+                    {
+                        "functionName": "Gestion de Clientes",
+                        "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente."
+                    },
+                    {
+                        "functionName": "Administracion proveedor",
+                        "functionDescription": "Debe poder gestionar una comunicacion con el proveedor para solicitar los productos necesarios de suplementación."
+                    },
+                    {
+                        "functionName": "Administracion de proveedor de bebidas.",
+                        "functionDescription": "Debe permitir omitir pedidos al proveedor de bebidas."
+                    }
+                ]
+            }
+        ]
+    }
+},
+{
+    "Modulo" : "Equipos"
+},
+{
+    "Endpoint":"Teams/getAll",
+    "message": "Equipos registrados.",
+    "teamsRegistered": [
+        {
+            "numberTeam": 101,
+            "employees": [
+                {
+                    "nameEmployee": "Leandro",
+                    "lastNameEmployee": "Paredes",
+                    "dniEmployee": 44128755,
+                    "rolEmployee": "ProjectManager"
+                },
+                {
+                    "nameEmployee": "Lucia",
+                    "lastNameEmployee": "Silvia",
+                    "dniEmployee": 41548966,
+                    "rolEmployee": "Tester"
+                },
+                {
+                    "nameEmployee": "Miguel",
+                    "lastNameEmployee": "Merentiel",
+                    "dniEmployee": 45548144,
+                    "rolEmployee": "Developer"
+                }
+            ]
+        },
+        {
+            "numberTeam": 107,
+            "employees": []
+        }
+    ]
+},
+{
+    "Modulo" : "Dasboard"
+},
+{
+    "Endpoint":"Dashboard/getLoadPerTeam",
+    "message": "Rendimiento de equipos",
+    "teamWithPerfermance": [
+        {
+            "teamNumber": 101,
+            "projectsCount": 1,
+            "numberCompletedProjects": 0
+        },
+        {
+            "teamNumber": 107,
+            "projectsCount": 1,
+            "numberCompletedProjects": 0
+        }
+    ]
+}
+
+]
