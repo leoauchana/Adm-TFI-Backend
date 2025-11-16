@@ -1,8 +1,10 @@
-using Tfi.Application;
-using Tfi.Data;
 using Mapster;
-using Tfi.Application.Map;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Tfi.Api.Middleware;
+using Tfi.Application;
+using Tfi.Application.Map;
+using Tfi.Data;
 
 namespace Tfi.Api
 {
@@ -12,15 +14,34 @@ namespace Tfi.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-
+            builder.Services.AddControllers(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy =>
+                {
+                    policy.RequireRole("Administrator");
+                });
+                options.AddPolicy("ProjectManager", policy =>
+                {
+                    policy.RequireRole("ProjectManager");
+                });
+                options.AddPolicy("TeamMember", policy =>
+                {
+                    policy.RequireRole("Developer", "Tester");
+                });
+            });
             builder.Services.AddMapster();
 
             builder.Services.AddEndpointsApiExplorer();
 
-            //builder.Services.AddSwaggerGen();
 
-            builder.Services.AddApplicationServices();
+            builder.Services.AddApplicationServices(builder.Configuration);
 
             builder.Services.AddDataServices(builder.Configuration);
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -14,6 +16,7 @@ public class TaskController : ControllerBase
         _taskService = taskService;
     }
     [HttpPost]
+    [Authorize(Policy = "ProjectManager")]
     public async Task<IActionResult> RegisterTask([FromBody] TaskDto.Request taskData)
     {
         var taskRegistered = await _taskService.AddTask(taskData);
@@ -24,6 +27,7 @@ public class TaskController : ControllerBase
         });
     }
     [HttpPatch("deleteTask/{idTask}")]
+    [Authorize(Policy = "ProjectManager")]
     public async Task<IActionResult> DeleteTask(int idTask)
     {
         var isSuccess = await _taskService.DeleteTask(idTask);
@@ -35,9 +39,12 @@ public class TaskController : ControllerBase
     }
 
     [HttpPatch("completeTask/{idTask}")]
+    [Authorize(Policy = "TeamMember")]
     public async Task<IActionResult> CompleteTask(int idTask)
     {
-        var isSuccess = await _taskService.CompleteTask(idTask);
+        var idEmployee = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if(idEmployee == null) return BadRequest("No se pudo obtener el ID del empleado");
+        var isSuccess = await _taskService.CompleteTask(idTask, idEmployee);
         if (!isSuccess) return BadRequest("Hubo un error al actualizar el proyecto.");
         return Ok(new
         {

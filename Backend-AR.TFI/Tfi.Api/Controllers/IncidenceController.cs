@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -25,7 +26,9 @@ public class IncidenceController : ControllerBase
 		});
 	}
 	[HttpPost]
-	public async Task<IActionResult> AddIncidencias([FromBody] IncidenceDto.Request incidenceRequest)
+    [Authorize(Policy = "ProjectManager")]
+    [Authorize(Policy = "TeamMember")]
+    public async Task<IActionResult> AddIncidencias([FromBody] IncidenceDto.Request incidenceRequest)
 	{
 		var newIncidence = await _incidencesService.RegisterIncidence(incidenceRequest);
 		if (newIncidence == null) return BadRequest("Error al registrar la incidencia.");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -13,14 +14,17 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
+    [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] UserDto.Request userData)
     {
         var userAuthenticated = await _authService.Login(userData);
-        if (userAuthenticated == null) return BadRequest("Hubo un error al iniciar sesión.");
+        if (userAuthenticated.Item1 == null) return BadRequest("Hubo un error al iniciar sesión.");
         return Ok(new
         {
             Message = "Inicio de sesión correcto",
-            userAuthenticated
+            Employee = userAuthenticated.Item1,
+            Token = userAuthenticated.Item2
         });
     }
 }

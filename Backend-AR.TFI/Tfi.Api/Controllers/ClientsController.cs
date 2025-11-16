@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 using Tfi.Application.Services;
@@ -15,6 +16,7 @@ public class ClientsController : ControllerBase
 		_clientsService = clientsService;
 	}
 	[HttpGet("getAll")]
+	[Authorize(Policy = "Administrator")]
 	public async Task<IActionResult> GetAll()
 	{
 		var clientsRegistered = await _clientsService.GetAll();
@@ -25,6 +27,7 @@ public class ClientsController : ControllerBase
 			clientsRegistered
 		});
 	}
+    [Authorize(Policy = "Administrator")]
     [HttpGet("getByIdWithProjects/{idClient}")]
     public async Task<IActionResult> GetByIdWithProjects(int idClient)
     {

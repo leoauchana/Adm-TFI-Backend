@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tfi.Application.Interfaces;
 
 namespace Tfi.Api.Controllers;
@@ -12,6 +13,8 @@ public class TeamsController : ControllerBase
 	{
 		_teamsService = teamsService;
 	}
+	[HttpGet]
+	[Authorize(Policy = "Administrator")]
 	public async Task<IActionResult> GetAll()
 	{
 		var teamsRegistered = await _teamsService.GetAll();

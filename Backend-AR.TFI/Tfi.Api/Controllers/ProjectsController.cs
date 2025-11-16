@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -15,6 +16,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> RegisterProyect([FromBody] ProjectDto.Request newProyect)
     {
         var proyectRegistered = await _proyectsService.AddProyect(newProyect);
@@ -25,6 +27,7 @@ public class ProjectsController : ControllerBase
         });
     }
     [HttpGet("getAllProyects")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> GetProyects()
     {
         var proyectsList = await _proyectsService.GetAll();
@@ -36,6 +39,7 @@ public class ProjectsController : ControllerBase
         });
     }
     [HttpGet("getById/{idProyect}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> GetById(int idProyect)
     {
         var proyect = await _proyectsService.GetById(idProyect);
@@ -48,6 +52,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPatch("deleteProyect/{idProyect}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> DeleteProyect(int idProyect)
     {
         var proyectDeleted = await _proyectsService.DeleteProyect(idProyect);
@@ -60,6 +65,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPatch("updateProyect")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> UpdateProyect([FromBody] ProjectDto.RequestUpdate proyectData)
     {
         var proyectUpdated = await _proyectsService.UpdateProyect(proyectData);
@@ -71,6 +77,7 @@ public class ProjectsController : ControllerBase
         });
     }
     [HttpGet("getHistoryById/{idProject}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> GetHistoryById(int idProject)
     {
         var projectWithHistory = await _proyectsService.GetHistoryById(idProject);
