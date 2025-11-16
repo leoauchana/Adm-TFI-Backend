@@ -65,7 +65,8 @@ public static class MappingConfig
             .Map(dest => dest.historyList, src => src.ChangesHistory);
 
         TypeAdapterConfig<Proyect, ProjectDto.ResponseMinimal>
-            .NewConfig().Map(dest => dest.nameProject, src => src.Name)
+            .NewConfig()
+            .Map(dest => dest.nameProject, src => src.Name)
             .Map(dest => dest.idProject, src => src.Id)
             .Map(dest => dest.dateEnd, src => DateOnly.FromDateTime(src.DateEnd))
             .Map(dest => dest.priorityProject, src => src.Priority.ToString())

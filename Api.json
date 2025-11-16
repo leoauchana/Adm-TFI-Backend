@@ -273,6 +273,37 @@
     "Modulo" : "Dasboard"
 },
 {
+    "Endpoint":"Dashboard/getProjectsProgress",
+    "message": "Proyectos con su progreso.",
+    "projectsWithProgress": [
+        {
+            "projectData": {
+                "idProject": 5,
+                "nameProject": "GymAfg",
+                "dateInitial": "2025-11-12",
+                "dateEnd": "0001-01-01",
+                "priorityProject": "High",
+                "stateProject": "In_Progress",
+                "teamNumber": 101
+            },
+            "progressPorcentage": 66.67
+        },
+        {
+            "projectData": {
+                "idProject": 6,
+                "nameProject": "ColosseoGym",
+                "dateInitial": "2025-11-15",
+                "dateEnd": "2025-11-25",
+                "priorityProject": "Medium",
+                "stateProject": "In_Progress",
+                "teamNumber": 107
+            },
+            "progressPorcentage": 0
+        }
+    ]
+
+},
+{
     "Endpoint":"Dashboard/getLoadPerTeam",
     "message": "Rendimiento de equipos",
     "teamWithPerfermance": [

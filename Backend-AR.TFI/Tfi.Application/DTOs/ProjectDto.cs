@@ -18,6 +18,6 @@ public class ProjectDto
         List<FunctionsDto.ResponseById>? functions);
     public record ResponseHistory(string nameProject, string typeProject, double budgetProject, string descriptionProject,
         DateOnly newEndDate, List<HistoryDto.Response> historyList);
-    public record ResponseMinimal(int idProject, string nameProject, DateTime dateInitial, DateOnly dateEnd,
+    public record ResponseMinimal(int idProject, string nameProject, DateOnly dateInitial, DateOnly dateEnd,
         string priorityProject, string stateProject, int teamNumber);
 }
