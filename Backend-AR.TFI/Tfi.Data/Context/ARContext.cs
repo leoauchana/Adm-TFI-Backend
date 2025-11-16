@@ -152,12 +152,13 @@ public class ARContext : DbContext
             entity.Property(e => e.InitialDate).HasColumnName("fechaInicioTarea");
             entity.Property(e => e.Name).HasMaxLength(45).HasColumnName("nombreTarea");
             entity.Property(e => e.Priority).HasColumnName("prioridadTarea");
+            entity.Property(e => e.ImplementationStatus).HasColumnName("estadoImplementación");
         });
         modelBuilder.Entity<Domain.Entities.Task>()
             .HasOne(t => t.Function)
             .WithMany(f => f.Tasks)
             .HasForeignKey(t => t.FunctionId)
-            .OnDelete(DeleteBehavior.Restrict); // ⚠️ rompe la cascada
+            .OnDelete(DeleteBehavior.Restrict);
     }
     private void ConfigureUsuario(ModelBuilder modelBuilder)
     {

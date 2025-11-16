@@ -4,5 +4,5 @@ namespace Tfi.Application.Interfaces;
 
 public interface ITeamsService
 {
-    Task<List<TeamDto.Response>?> GetAll();
+    Task<List<TeamDto.ResponseById>?> GetAll();
 }

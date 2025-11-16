@@ -1,5 +1,4 @@
 ﻿using MapsterMapper;
-using Microsoft.Extensions.Logging;
 using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
@@ -17,14 +16,14 @@ public class TeamsService : ITeamsService
 		_repository = repository;
 		_mapper = mapper;
 	}
-	public async Task<List<TeamDto.Response>?> GetAll()
+	public async Task<List<TeamDto.ResponseById>?> GetAll()
 	{
 		var teamsRegistered = await _repository
 							.ListarTodos<Team>(nameof(Team.Employees));
 		if (teamsRegistered == null) throw new NullException("No hay equipos registrados.");
 		
 		return teamsRegistered
-				.Select(t => _mapper.Map<Team, TeamDto.Response>(t))
+				.Select(t => _mapper.Map<Team, TeamDto.ResponseById>(t))
 				.ToList();
 	}
 }

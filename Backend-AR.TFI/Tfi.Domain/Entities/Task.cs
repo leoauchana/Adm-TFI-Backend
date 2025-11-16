@@ -10,6 +10,7 @@ public class Task : EntityBase
     public string? Description { get; set; }
     public Priority Priority { get; set; }
     public StateProgress State { get; set; }
+    public StateTask ImplementationStatus { get; set; }
     public DateTime InitialDate { get; set; }
     public DateTime EndDate { get; set; }
     public Function? Function { get; set; }

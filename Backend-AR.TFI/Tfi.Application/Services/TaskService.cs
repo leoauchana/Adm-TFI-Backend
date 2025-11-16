@@ -3,6 +3,7 @@ using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
 using Tfi.Domain.Entities;
+using Tfi.Domain.Enum;
 using Tfi.Domain.Repository;
 
 namespace Tfi.Application.Services;
@@ -23,5 +24,35 @@ public class TaskService : ITaskService
         var newTask = _mapper.Map<TaskDto.Request, Domain.Entities.Task>(taskData);
         await _repository.Agregar(newTask);
         return _mapper.Map<Domain.Entities.Task, TaskDto.Response>(newTask);
+    }
+    public async Task<bool> CompleteTask(int idTask, string idEmployee)
+    {
+        var employeeFound = await _repository.ObtenerPorId<Employee>(int.Parse(idEmployee));
+        if (employeeFound == null) throw new EntityNotFoundException($"El empleado autenticado no se encontro.{idEmployee}");
+        var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask);
+        if (taskFound == null) throw new EntityNotFoundException($"La tarea de id {idTask} no se encontró.");
+        if (taskFound.State == StateProgress.Completed && taskFound.ImplementationStatus == StateTask.Completed) throw new BusinessConflictException("La tarea ya esta completada.");
+        if(employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.InDevelopment)
+        {
+            taskFound.ImplementationStatus = StateTask.InTesting;
+        }
+        else if(employeeFound.RolEmpleado == EmployeeRol.Tester && taskFound.ImplementationStatus == StateTask.InTesting)
+        {
+            taskFound.ImplementationStatus = StateTask.Completed;
+        }
+        if(taskFound.ImplementationStatus == StateTask.Completed)
+        {
+            taskFound.State = StateProgress.Completed;
+        }
+        await _repository.Actualizar(taskFound);
+        return true;
+    }
+    public async Task<bool> DeleteTask(int idTask)
+    {
+        var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask);
+        if (taskFound == null) throw new EntityNotFoundException($"La tarea de id {idTask} no se encontró.");
+        taskFound.State = StateProgress.Cancelled;
+        await _repository.Actualizar(taskFound);
+        return true;
     }
 }

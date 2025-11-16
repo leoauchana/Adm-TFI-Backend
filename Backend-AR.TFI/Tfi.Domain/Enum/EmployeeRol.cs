@@ -3,5 +3,7 @@
 public enum EmployeeRol
 {
     Administrator = 0,
-    Employee
+    Developer,
+    ProjectManager,
+    Tester
 }

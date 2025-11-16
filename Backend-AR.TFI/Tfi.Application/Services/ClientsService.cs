@@ -25,4 +25,10 @@ public class ClientsService : IClientsService
 				.Select(c => _mapper.Map<Client, ClientDto.Response>(c))
 				.ToList();
 	}
+    public async Task<ClientDto.ResponseWithProjects?> GetByIdWithProjects(int idClient)
+    {
+        var clientFound = await _repository.ObtenerPorId<Client>(idClient, nameof(Client.Proyects), "Proyects.Team", "Proyects.Functions");
+        if (clientFound == null) throw new EntityNotFoundException($"No se encontró el cliente de id {idClient}.");
+		return _mapper.Map<Client, ClientDto.ResponseWithProjects>(clientFound);
+    }
 }
