@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tfi.Data.Context;
 
@@ -11,9 +12,11 @@ using Tfi.Data.Context;
 namespace Tfi.Data.Migrations
 {
     [DbContext(typeof(ARContext))]
-    partial class ARContextModelSnapshot : ModelSnapshot
+    [Migration("20251116234456_Tercer-Modelo")]
+    partial class TercerModelo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +59,9 @@ namespace Tfi.Data.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("FunctionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FunctionsSnapshot")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("oldFunctions");
@@ -71,6 +77,8 @@ namespace Tfi.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("FunctionId");
 
                     b.HasIndex("ProyectId");
 
@@ -419,6 +427,10 @@ namespace Tfi.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Tfi.Domain.Entities.Function", null)
+                        .WithMany("ChangesHistory")
+                        .HasForeignKey("FunctionId");
+
                     b.HasOne("Tfi.Domain.Entities.Proyect", "Proyect")
                         .WithMany("ChangesHistory")
                         .HasForeignKey("ProyectId")
@@ -513,6 +525,8 @@ namespace Tfi.Data.Migrations
 
             modelBuilder.Entity("Tfi.Domain.Entities.Function", b =>
                 {
+                    b.Navigation("ChangesHistory");
+
                     b.Navigation("Tasks");
                 });
 

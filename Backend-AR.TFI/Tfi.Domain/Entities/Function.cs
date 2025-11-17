@@ -9,5 +9,4 @@ public class Function : EntityBase
     public string? Description { get; set; }
     public Proyect? Proyect { get; set; }
     public List<Task>? Tasks { get; set; }
-    public List<ChangeHistory>? ChangesHistory { get; set; }
 }

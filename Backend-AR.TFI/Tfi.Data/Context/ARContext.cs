@@ -91,6 +91,7 @@ public class ARContext : DbContext
             entity.Property(e => e.ChangeDate).HasColumnName("fechaCambio");
             entity.Property(e => e.Reason).HasMaxLength(45).HasColumnName("motivoCambio");
             entity.Property(e => e.Budget).HasColumnName("presupuesto");
+            entity.Property(e => e.FunctionsSnapshot).HasColumnName("oldFunctions");
         });
         modelBuilder.Entity<ChangeHistory>()
             .HasOne(h => h.Proyect)

@@ -1,4 +1,5 @@
-﻿using Tfi.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Tfi.Domain.Common;
 
 namespace Tfi.Domain.Entities;
 
@@ -11,5 +12,5 @@ public class ChangeHistory : EntityBase
     public double Budget { get; set; }
     public  Employee Employee { get; set; } = null!;
     public Proyect Proyect { get; set; } = null!;
-    public List<Function>? Functions { get; set; }
+    public string? FunctionsSnapshot { get; set; } = string.Empty;
 }

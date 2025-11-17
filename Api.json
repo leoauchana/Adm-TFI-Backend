@@ -75,6 +75,106 @@
     ]
   },
   {
+    "Endpoint": "Projects/getById/5",
+    "message": "Proyecto encontrado con exito.",
+    "proyect": {
+        "idProject": 5,
+        "nameProject": "GymAfg",
+        "typeProject": "Escritorio",
+        "dateInitial": "2025-11-12T04:07:23.5393482",
+        "dateEnd": "0001-01-01",
+        "priorityProject": "High",
+        "stateProject": "In_Progress",
+        "budgetProject": 3000000,
+        "descriptionProject": "Sistema de gestión de gimnasios que permita gestionar los empleados, mediante la alta, baja y modificación. Que permita gestionar los clientes con sus correspondientes membresías y que el ingreso se realice mediante la comunicacion con un sensor de huella digital.",
+        "client": {
+            "fullNameClient": "Milagros Albornoz",
+            "dniClient": 46652333,
+            "directionClient": "Lopez 123",
+            "mailClient": "lucias@gmail.com",
+            "phoneClient": "381215102"
+        },
+        "team": {
+            "numberTeam": 101,
+            "employees": [
+                {
+                    "nameEmployee": "Leandro",
+                    "lastNameEmployee": "Paredes",
+                    "dniEmployee": 44128755,
+                    "rolEmployee": "ProjectManager"
+                },
+                {
+                    "nameEmployee": "Lucia",
+                    "lastNameEmployee": "Silvia",
+                    "dniEmployee": 41548966,
+                    "rolEmployee": "Tester"
+                },
+                {
+                    "nameEmployee": "Miguel",
+                    "lastNameEmployee": "Merentiel",
+                    "dniEmployee": 45548144,
+                    "rolEmployee": "Developer"
+                }
+            ]
+        },
+        "incidencesList": [
+            {
+                "typeIncidence": "Recursos",
+                "descriptionIncidence": "Licencia presentada por un admin."
+            }
+        ],
+        "functions": [
+            {
+                "functionName": "Gestion de empleados",
+                "functionDescription": "Debe permitir dar de alta, baja y modificar los diferentes empleados del sistema.",
+                "tasks": [
+                    {
+                        "idTask": 1,
+                        "taskName": "Módulo empleados",
+                        "taskDescription": "Alta y baja de empleados",
+                        "taskPriority": 0,
+                        "dateEnd": "2025-11-25",
+                        "dateInitial": "0001-01-01",
+                        "progressState": "Cancelled",
+                        "taskState": "InDevelopment"
+                    }
+                ]
+            },
+            {
+                "functionName": "Gestion de Clientes",
+                "functionDescription": "Debe permitir registrar nuevos clientes en el sistema y poder gestionar su membresía correspondiente.",
+                "tasks": [
+                    {
+                        "idTask": 3,
+                        "taskName": "Módulo clientes",
+                        "taskDescription": "Alta y baja de clientes",
+                        "taskPriority": 0,
+                        "dateEnd": "2025-11-25",
+                        "dateInitial": "0001-01-01",
+                        "progressState": "Completed",
+                        "taskState": "Completed"
+                    },
+                    {
+                        "idTask": 4,
+                        "taskName": "Módulo clientes",
+                        "taskDescription": "Modificacion de clientes",
+                        "taskPriority": 0,
+                        "dateEnd": "2025-11-30",
+                        "dateInitial": "0001-01-01",
+                        "progressState": "Completed",
+                        "taskState": "Completed"
+                    }
+                ]
+            },
+            {
+                "functionName": "Integracion con sensor",
+                "functionDescription": "Debe poder comunicarse y controlar el ingreso de los clientes mediante la huella digital registrada por el mismo.",
+                "tasks": []
+            }
+        ]
+    }
+},
+  {
     "Endpoint": "Projects/getById/6",
     "message": "Proyecto encontrado con exito.",
     "proyect": {

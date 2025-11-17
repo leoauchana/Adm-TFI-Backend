@@ -1,10 +1,12 @@
 ﻿using MapsterMapper;
+using System.Text.Json;
 using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
 using Tfi.Domain.Entities;
 using Tfi.Domain.Enum;
 using Tfi.Domain.Repository;
+using static Tfi.Application.DTOs.ProjectDto;
 
 namespace Tfi.Application.Services;
 
@@ -69,11 +71,17 @@ public class ProjectsService : IProyectsService
         if ((proyectData.newFunctions.Count <= 0)) throw new BusinessConflictException("Se deben agregar las funcionalidades correspondientes.");
         var proyectFound = await _repository.ObtenerPorId<Proyect>(proyectData.idProject, nameof(Proyect.Functions));
         if (proyectFound == null) throw new EntityNotFoundException($"No se encontró el proyecto con id {proyectData.idProject}");
+        var snapshot = proyectFound.Functions!
+            .Select(f => new
+            {
+                f.Name,
+                f.Description
+            });
         var newChangeHistory = new ChangeHistory
         {
             ProyectId = proyectFound.Id,
             EmployeeId = 8,
-            Functions = proyectFound.Functions,
+            FunctionsSnapshot = JsonSerializer.Serialize(snapshot),
             Budget = proyectFound.Budget,
             ChangeDate = DateTime.UtcNow,
             Reason = proyectData.changeReason
@@ -91,8 +99,34 @@ public class ProjectsService : IProyectsService
     }
     public async Task<ProjectDto.ResponseHistory?> GetHistoryById(int idProject)
     {
-        var proyectFound = await _repository.ObtenerPorId<Proyect>(idProject, nameof(Proyect.ChangesHistory), "ChangesHistory.Functions");
+        var proyectFound = await _repository.ObtenerPorId<Proyect>(idProject, nameof(Proyect.ChangesHistory));
         if (proyectFound == null) throw new EntityNotFoundException($"No se encontro el proyecto con id {idProject}");
-        return _mapper.Map<Proyect, ProjectDto.ResponseHistory>(proyectFound);
+        //if (!proyectFound.ChangesHistory!.Any()) throw new BusinessConflictException($"No contiene un historial de cambio el proyecto con id {idProject}");
+
+        var historyList = proyectFound.ChangesHistory.Select(history =>
+        {
+            var oldFunctions = JsonSerializer.Deserialize<List<HistoryDto.ResponseOldFunction>>(
+                history.FunctionsSnapshot,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+            );
+
+            return new HistoryDto.Response(
+                changeReason: history.Reason,
+                oldBudget: history.Budget,
+                oldFunctions: oldFunctions!,
+                changeDate: DateOnly.FromDateTime(history.ChangeDate)
+            );
+        }).ToList();
+
+        return new ProjectDto.ResponseHistory(
+            nameProject: proyectFound.Name,
+            typeProject: proyectFound.Type,
+            budgetProject: proyectFound.Budget,
+            descriptionProject: proyectFound.Description,
+            newEndDate: DateOnly.FromDateTime(proyectFound.DateEnd),
+            historyList: historyList
+        );
+        //return _mapper.Map<ProjectDto.ResponseHistory>(proyectFound);
+        //return _mapper.Map<Proyect, ProjectDto.ResponseHistory>(proyectFound);
     }
 }

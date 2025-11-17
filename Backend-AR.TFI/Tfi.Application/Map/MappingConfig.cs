@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using System.Text.Json;
 using Tfi.Application.DTOs;
 using Tfi.Domain.Entities;
 using Tfi.Domain.Enum;
@@ -64,6 +65,17 @@ public static class MappingConfig
             .Map(dest => dest.typeProject, src => src.Type)
             .Map(dest => dest.historyList, src => src.ChangesHistory);
 
+        //TypeAdapterConfig<ChangeHistory, HistoryDto.Response>
+        //    .NewConfig()
+        //    .Ignore(dest => dest.oldFunctions) // ← OBLIGATORIO
+        //    .Map(dest => dest.oldFunctions,
+        //        src => JsonSerializer.Deserialize<List<HistoryDto.ResponseOldFunction>>(
+        //            src.FunctionsSnapshot ?? "[]",
+        //            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        //        )
+        //    )
+        //    .Map(dest => dest.changeDate, src => DateOnly.FromDateTime(src.ChangeDate));
+
         TypeAdapterConfig<Proyect, ProjectDto.ResponseMinimal>
             .NewConfig()
             .Map(dest => dest.nameProject, src => src.Name)
@@ -76,7 +88,7 @@ public static class MappingConfig
 
         TypeAdapterConfig<ChangeHistory, HistoryDto.Response>
             .NewConfig()
-            .Map(dest => dest.oldFunctions, src => src.Functions)
+            .Map(dest => dest.oldFunctions, src => src.FunctionsSnapshot)
             .Map(dest => dest.oldBudget, src => src.Budget)
             .Map(dest => dest.changeDate, src => DateOnly.FromDateTime(src.ChangeDate))
             .Map(dest => dest.changeReason, src => src.Reason);
