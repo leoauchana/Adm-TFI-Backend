@@ -2,7 +2,7 @@
 
 public enum StateProgress
 {
-    In_Progress = 0,
+    Progress = 0,
     Completed,
     Cancelled
 }

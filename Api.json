@@ -8,10 +8,28 @@
     }
   },
   {
+    "Modulo" : "Autenticacion"
+  },
+  {
+    "Endpoint": "Auth/login",
+    "Method" : "POST",
+    "message": "Inicio de sesión correcto",
+    "employee": {
+        "employeeAuthenticated": {
+            "nameEmployee": "Ezequiel",
+            "lastNameEmployee": "Zeballos",
+            "dniEmployee": 45263220,
+            "rolEmployee": "Administrator"
+        }
+    },
+    "token": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjgiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXplcXVpZWwiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzYzNDM0MjI4fQ.Ou9NGmZukCvvHSPJ74h8sbwMQPVapbwAowlMyqNMPeE"
+  },
+  {
     "Modulo": "Proyectos"
   },
   {
     "Endpoint": "Projects/getAll",
+    "Method" : "GET",
     "message": "Proyectos registrados.",
     "proyectsList": [
       {
@@ -76,6 +94,7 @@
   },
   {
     "Endpoint": "Projects/getById/5",
+    "Method" : "GET",
     "message": "Proyecto encontrado con exito.",
     "proyect": {
         "idProject": 5,
@@ -176,6 +195,7 @@
 },
   {
     "Endpoint": "Projects/getById/6",
+    "Method" : "GET",
     "message": "Proyecto encontrado con exito.",
     "proyect": {
       "idProject": 6,
@@ -225,6 +245,7 @@
   },
   {
     "Endpoint": "Projects/getHistoryById/6",
+    "Method" : "GET",
     "message": "Proyecto encontrado con exito.",
     "projectWithHistory": {
       "nameProject": "ColosseoGym",
@@ -264,6 +285,7 @@
   },
   {
     "Endpoint": "Clients/getAll",
+    "Method" : "GET",
     "message": "Clientes registrados.",
     "clientsRegistered": [
       {
@@ -298,6 +320,7 @@
   },
   {
     "Endpoint": "Clients/getByIdWithProjects/5",
+    "Method" : "GET",
     "message": "Clientes registrado con sus projectos",
     "clientFound": {
       "fullNameClient": "Agustin Marchesin",
@@ -345,6 +368,7 @@
   },
   {
     "Endpoint": "Teams/getAll",
+    "Method" : "GET",
     "message": "Equipos registrados.",
     "teamsRegistered": [
       {
@@ -381,6 +405,7 @@
   },
   {
     "Endpoint": "Dashboard/getProjectsProgress",
+    "Method" : "GET",
     "message": "Proyectos con su progreso.",
     "projectsWithProgress": [
       {
@@ -411,6 +436,7 @@
   },
   {
     "Endpoint": "Dashboard/getLoadPerTeam",
+    "Method" : "GET",
     "message": "Rendimiento de equipos",
     "teamWithPerfermance": [
       {

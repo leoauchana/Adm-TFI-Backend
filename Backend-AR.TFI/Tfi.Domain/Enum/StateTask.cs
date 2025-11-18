@@ -2,7 +2,7 @@
 
 public enum StateTask
 {
-    InDevelopment = 0,
-    InTesting,
+    Development = 0,
+    Testing,
     Completed
 }
