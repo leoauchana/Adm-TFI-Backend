@@ -29,7 +29,7 @@ namespace Tfi.Api
                 });
                 options.AddPolicy("ProjectManager", policy =>
                 {
-                    policy.RequireRole("ProjectManager");
+                    policy.RequireRole("Manager");
                 });
                 options.AddPolicy("TeamMember", policy =>
                 {

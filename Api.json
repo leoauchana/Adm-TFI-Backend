@@ -450,5 +450,102 @@
         "numberCompletedProjects": 0
       }
     ]
-  }
+  },
+  {
+    "Modulo": "Recursos"
+  },
+  {
+    "Endpoint": "Resources/getAll",
+    "message": "Recursos registrados.",
+    "resourcesList": [
+        {
+            "idResource": 1,
+            "resourceDescription": "Servidor de desarrollo"
+        },
+        {
+            "idResource": 2,
+            "resourceDescription": "Servidor de base de datos"
+        },
+        {
+            "idResource": 3,
+            "resourceDescription": "Entorno de testing"
+        },
+        {
+            "idResource": 4,
+            "resourceDescription": "Base de datos SQL"
+        },
+        {
+            "idResource": 5,
+            "resourceDescription": "Sistema de control de versiones Git"
+        },
+        {
+            "idResource": 6,
+            "resourceDescription": "Repositorio GitHub"
+        },
+        {
+            "idResource": 7,
+            "resourceDescription": "API de autenticación"
+        },
+        {
+            "idResource": 8,
+            "resourceDescription": "Framework .NET"
+        },
+        {
+            "idResource": 9,
+            "resourceDescription": "Framework Node.js"
+        },
+        {
+            "idResource": 10,
+            "resourceDescription": "Framework React"
+        },
+        {
+            "idResource": 11,
+            "resourceDescription": "Framework Angular"
+        },
+        {
+            "idResource": 12,
+            "resourceDescription": "Postman para pruebas API"
+        },
+        {
+            "idResource": 13,
+            "resourceDescription": "Swagger / OpenAPI"
+        },
+        {
+            "idResource": 14,
+            "resourceDescription": "Docker para contenedores"
+        },
+        {
+            "idResource": 15,
+            "resourceDescription": "Pipeline de CI/CD"
+        },
+        {
+            "idResource": 16,
+            "resourceDescription": "Infraestructura en la nube Azure"
+        },
+        {
+            "idResource": 17,
+            "resourceDescription": "Manual de requisitos"
+        },
+        {
+            "idResource": 18,
+            "resourceDescription": "Historias de usuario"
+        },
+        {
+            "idResource": 19,
+            "resourceDescription": "Casos de uso"
+        },
+        {
+            "idResource": 20,
+            "resourceDescription": "Documentación arquitectónica"
+        },
+        {
+            "idResource": 21,
+            "resourceDescription": "Plan de pruebas"
+        },
+        {
+            "idResource": 22,
+            "resourceDescription": "Diagrama de clases"
+        }
+    ]
+}
 ]

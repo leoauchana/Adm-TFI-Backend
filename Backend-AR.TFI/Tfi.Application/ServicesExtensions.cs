@@ -19,6 +19,7 @@ public static class ServicesExtensions
         services.AddScoped<ITaskService, TaskService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDashboardService, DashboardService>();
+        services.AddScoped<IResourcesService, ResourcesService>();
         services.AddAuthentication(config =>
         {
             config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -21,7 +21,7 @@ public static class MappingConfig
             .Map(dest => dest.DateEnd, src => src.dateEnd)
             .Map(dest => dest.Type, src => src.typeProject)
             .Map(dest => dest.Priority, src => src.priorityProject)
-            .Map(dest => dest.State, src => StateProgress.In_Progress)
+            .Map(dest => dest.State, src => StateProgress.Progress)
             .Map(dest => dest.ClientId, src => src.idClient)
             .Map(dest => dest.TeamId, src => src.idTeam)
             .Map(dest => dest.DateInitial, src => DateTime.UtcNow)
@@ -140,8 +140,8 @@ public static class MappingConfig
             .Map(dest => dest.Name, src => src.taskName)
             .Map(dest => dest.Description, src => src.taskDescription)
             .Map(dest => dest.Priority, src => src.taskPriority)
-            .Map(dest => dest.State, src => StateProgress.In_Progress)
-            .Map(dest => dest.ImplementationStatus, src => StateTask.InDevelopment)
+            .Map(dest => dest.State, src => StateProgress.Progress)
+            .Map(dest => dest.ImplementationStatus, src => StateTask.Development)
             .Map(dest => dest.EndDate, src => src.dateEnd);
 
         TypeAdapterConfig<Domain.Entities.Task, TaskDto.Response>
@@ -174,6 +174,12 @@ public static class MappingConfig
             .NewConfig()
             .Map(dest => dest.employeeAuthenticated, src => src.Employee);
 
-        
+        TypeAdapterConfig<Resource, ResourceDto.Response>
+            .NewConfig()
+            .Map(dest => dest.idResource, src => src.Id)
+            .Map(dest => dest.resourceDescription, src => src.Description);
+        TypeAdapterConfig<ResourceDto.Response, Resource>
+            .NewConfig()
+            .Map(dest => dest.Id, src => src.idResource);
     }
 }

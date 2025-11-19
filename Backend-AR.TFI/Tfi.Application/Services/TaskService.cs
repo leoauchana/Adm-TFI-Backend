@@ -32,11 +32,11 @@ public class TaskService : ITaskService
         var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask);
         if (taskFound == null) throw new EntityNotFoundException($"La tarea de id {idTask} no se encontró.");
         if (taskFound.State == StateProgress.Completed && taskFound.ImplementationStatus == StateTask.Completed) throw new BusinessConflictException("La tarea ya esta completada.");
-        if(employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.InDevelopment)
+        if(employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.Development)
         {
-            taskFound.ImplementationStatus = StateTask.InTesting;
+            taskFound.ImplementationStatus = StateTask.Testing;
         }
-        else if(employeeFound.RolEmpleado == EmployeeRol.Tester && taskFound.ImplementationStatus == StateTask.InTesting)
+        else if(employeeFound.RolEmpleado == EmployeeRol.Tester && taskFound.ImplementationStatus == StateTask.Testing)
         {
             taskFound.ImplementationStatus = StateTask.Completed;
         }
