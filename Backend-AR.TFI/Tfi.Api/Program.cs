@@ -40,12 +40,27 @@ namespace Tfi.Api
 
             builder.Services.AddEndpointsApiExplorer();
 
-
             builder.Services.AddApplicationServices(builder.Configuration);
 
             builder.Services.AddDataServices(builder.Configuration);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()     
+                        .WithOrigins(   
+                            "http://localhost:5173"
+                        );
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("AllowFrontend");
 
             MappingConfig.RegisterConfig();
             

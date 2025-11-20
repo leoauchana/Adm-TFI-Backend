@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using System.Threading.Tasks;
 using Tfi.Application.DTOs;
 using Tfi.Application.Exceptions;
 using Tfi.Application.Interfaces;
@@ -22,6 +23,9 @@ public class TaskService : ITaskService
         var functionFound = await _repository.ObtenerPorId<Function>(taskData.idFunction);
         if (functionFound == null) throw new EntityNotFoundException($"La funcion de id {taskData.idFunction} no se encontró.");
         var newTask = _mapper.Map<TaskDto.Request, Domain.Entities.Task>(taskData);
+        var resourceIds = taskData.resourceList.Select(r => r.idResource).ToList();
+        var resources = await _repository.ListarTodos<Resource>();
+        newTask.Resources!.AddRange(resources.Where(r => resourceIds.Contains(r.Id)).ToList());
         await _repository.Agregar(newTask);
         return _mapper.Map<Domain.Entities.Task, TaskDto.Response>(newTask);
     }
