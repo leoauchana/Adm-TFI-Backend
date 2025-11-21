@@ -4,7 +4,7 @@
       "Admin": "Todos los endpoints de proyectos y los de reportes. También ver historial de clientes(Modulo clientes)",
       "ProjectManager": "AddTask, DeleteTask, RegisterIncidence",
       "Developer/Tester": "CompleteTask, RegisterIncidence",
-      "Todos" : "Inicio de sesion"
+      "Todos" : "Inicio de sesion, GetAllProjects, GetProjectById"
     }
   },
   {
