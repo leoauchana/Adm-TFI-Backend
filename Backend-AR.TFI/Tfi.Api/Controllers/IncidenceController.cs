@@ -26,8 +26,7 @@ public class IncidenceController : ControllerBase
 		});
 	}
 	[HttpPost]
-    [Authorize(Policy = "ProjectManager")]
-    [Authorize(Policy = "TeamMember")]
+    [Authorize(Policy = "TasksActions")]
     public async Task<IActionResult> AddIncidencias([FromBody] IncidenceDto.Request incidenceRequest)
 	{
 		var newIncidence = await _incidencesService.RegisterIncidence(incidenceRequest);
