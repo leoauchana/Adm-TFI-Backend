@@ -23,9 +23,8 @@ public class TaskService : ITaskService
         var functionFound = await _repository.ObtenerPorId<Function>(taskData.idFunction);
         if (functionFound == null) throw new EntityNotFoundException($"La funcion de id {taskData.idFunction} no se encontró.");
         var newTask = _mapper.Map<TaskDto.Request, Domain.Entities.Task>(taskData);
-        var resourceIds = taskData.resourceList.Select(r => r.idResource).ToList();
         var resources = await _repository.ListarTodos<Resource>();
-        newTask.Resources!.AddRange(resources.Where(r => resourceIds.Contains(r.Id)).ToList());
+        newTask.Resources!.AddRange(resources.Where(r => taskData.resourceList.Contains(r.Id)).ToList());
         await _repository.Agregar(newTask);
         return _mapper.Map<Domain.Entities.Task, TaskDto.Response>(newTask);
     }
@@ -36,15 +35,19 @@ public class TaskService : ITaskService
         var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask);
         if (taskFound == null) throw new EntityNotFoundException($"La tarea de id {idTask} no se encontró.");
         if (taskFound.State == StateProgress.Completed && taskFound.ImplementationStatus == StateTask.Completed) throw new BusinessConflictException("La tarea ya esta completada.");
-        if(employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.Development)
+        if (employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.Development)
         {
             taskFound.ImplementationStatus = StateTask.Testing;
         }
-        else if(employeeFound.RolEmpleado == EmployeeRol.Tester && taskFound.ImplementationStatus == StateTask.Testing)
+        else if (employeeFound.RolEmpleado == EmployeeRol.Tester && taskFound.ImplementationStatus == StateTask.Testing)
         {
             taskFound.ImplementationStatus = StateTask.Completed;
         }
-        if(taskFound.ImplementationStatus == StateTask.Completed)
+        else
+        {
+            throw new BusinessConflictException("No se puede modificar el estado de la tarea.");
+        }
+        if (taskFound.ImplementationStatus == StateTask.Completed)
         {
             taskFound.State = StateProgress.Completed;
         }

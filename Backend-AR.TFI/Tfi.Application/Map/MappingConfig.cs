@@ -178,8 +178,5 @@ public static class MappingConfig
             .NewConfig()
             .Map(dest => dest.idResource, src => src.Id)
             .Map(dest => dest.resourceDescription, src => src.Description);
-        TypeAdapterConfig<ResourceDto.Response, Resource>
-            .NewConfig()
-            .Map(dest => dest.Id, src => src.idResource);
     }
 }

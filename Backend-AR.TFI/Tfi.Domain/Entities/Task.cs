@@ -5,6 +5,10 @@ namespace Tfi.Domain.Entities;
 
 public class Task : EntityBase
 {
+    public Task()
+    {
+        Resources = new List<Resource>();
+    }
     public int FunctionId { get; set; }
     public string? Name { get; set; } 
     public string? Description { get; set; }

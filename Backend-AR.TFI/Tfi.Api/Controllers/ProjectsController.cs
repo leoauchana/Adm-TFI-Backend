@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Tfi.Application.DTOs;
 using Tfi.Application.Interfaces;
 
@@ -27,10 +28,12 @@ public class ProjectsController : ControllerBase
         });
     }
     [HttpGet("getAllProyects")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = "GetProyects")]
     public async Task<IActionResult> GetProyects()
     {
-        var proyectsList = await _proyectsService.GetAll();
+        var idEmployee = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (idEmployee == null) return BadRequest("No se pudo obtener el id del empleado.");
+        var proyectsList = await _proyectsService.GetAll(idEmployee);
         if (proyectsList == null) return BadRequest("Hubo un error al obtener los proyectos.");
         return Ok(new
         {
@@ -39,7 +42,7 @@ public class ProjectsController : ControllerBase
         });
     }
     [HttpGet("getById/{idProyect}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = "GetProyects")]
     public async Task<IActionResult> GetById(int idProyect)
     {
         var proyect = await _proyectsService.GetById(idProyect);

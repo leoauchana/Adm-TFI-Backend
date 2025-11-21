@@ -46,14 +46,26 @@ public class ProjectsService : IProyectsService
         await _repository.Actualizar(proyectFound);
         return true;
     }
-    public async Task<List<ProjectDto.Response>?> GetAll()
+    public async Task<List<ProjectDto.Response>?> GetAll(string idEmployee)
     {
+        var employeeFound = await _repository.ObtenerPorId<Employee>(int.Parse(idEmployee));
+        if (employeeFound == null) throw new EntityNotFoundException($"El empleado autenticado no se encontro.{idEmployee}");
         var proyectsRegistered = await _repository
                                         .ListarTodos<Proyect>(nameof(Proyect.Functions), nameof(Client), nameof(Team), nameof(Proyect.Incidences));
         if (proyectsRegistered == null || !proyectsRegistered.Any()) throw new NullException("No hay proyectos registrados.");
-        var proyectsList = proyectsRegistered
+        List<ProjectDto.Response>? proyectsList = null;
+        if (employeeFound.RolEmpleado != EmployeeRol.Administrator)
+        {
+            proyectsList = proyectsRegistered
+                                    .Where(p => p.State != StateProgress.Cancelled && p.State != StateProgress.Completed
+                                    && p.TeamId == employeeFound.TeamId)
+                                    .Select(p => _mapper.Map<Proyect,Response>(p))
+                                    .ToList();
+            return proyectsList;
+        }
+        proyectsList = proyectsRegistered
                                     .Where(p => p.State != StateProgress.Cancelled && p.State != StateProgress.Completed)
-                                    .Select(p => _mapper.Map<Proyect, ProjectDto.Response>(p))
+                                    .Select(p => _mapper.Map<Proyect, Response>(p))
                                     .ToList();
         return proyectsList;
     }
@@ -64,7 +76,7 @@ public class ProjectsService : IProyectsService
         if (proyectFound.State == StateProgress.Cancelled) throw new BusinessConflictException($"El proyecto con id {idProyect} fue dado de baja.");
         var proyectFunctions = await _repository.Listar<Function>(f => f.ProyectId == proyectFound.Id, nameof(Function.Tasks));
         proyectFound.Functions = proyectFunctions;
-        return _mapper.Map<Proyect, ProjectDto.ResponseById>(proyectFound);
+        return _mapper.Map<Proyect, ResponseById>(proyectFound);
     }
     public async Task<ProjectDto.Response?> UpdateProyect(ProjectDto.RequestUpdate proyectData)
     {
