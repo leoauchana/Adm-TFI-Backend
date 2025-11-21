@@ -35,6 +35,10 @@ namespace Tfi.Api
                 {
                     policy.RequireRole("Developer", "Tester");
                 });
+                options.AddPolicy("TasksActions", policy =>
+                {
+                    policy.RequireRole("Developer", "Tester", "Manager");
+                });
                 options.AddPolicy("GetProyects", policy =>
                 {
                     policy.RequireRole("Administrator", "Manager", "Developer", "Tester");
