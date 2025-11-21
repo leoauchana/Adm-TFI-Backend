@@ -95,6 +95,7 @@ public static class MappingConfig
 
         TypeAdapterConfig<Client, ClientDto.Response>
             .NewConfig()
+            .Map(dest => dest.idClient, src => src.Id)
             .Map(dest => dest.fullNameClient, src => src.Name)
             .Map(dest => dest.mailClient, src => src.Mail)
             .Map(dest => dest.dniClient, src => src.Dni)
@@ -112,6 +113,7 @@ public static class MappingConfig
 
         TypeAdapterConfig<Team, TeamDto.ResponseById>
             .NewConfig()
+            .Map(dest => dest.idTeam, src => src.Id)
             .Map(dest => dest.numberTeam, src => src.Number)
             .Map(dest => dest.employees, src => src.Employees);
 
