@@ -78,9 +78,11 @@ public class ProjectsService : IProyectsService
         proyectFound.Functions = proyectFunctions;
         return _mapper.Map<Proyect, ResponseById>(proyectFound);
     }
-    public async Task<ProjectDto.Response?> UpdateProyect(ProjectDto.RequestUpdate proyectData)
+    public async Task<ProjectDto.Response?> UpdateProyect(ProjectDto.RequestUpdate proyectData, string idEmployee)
     {
         if ((proyectData.newFunctions.Count <= 0)) throw new BusinessConflictException("Se deben agregar las funcionalidades correspondientes.");
+        var employeeFound = await _repository.ObtenerPorId<Employee>(int.Parse(idEmployee));
+        if (employeeFound == null) throw new EntityNotFoundException($"El empleado autenticado con id {idEmployee} no se encontro.");
         var proyectFound = await _repository.ObtenerPorId<Proyect>(proyectData.idProject, nameof(Proyect.Functions));
         if (proyectFound == null) throw new EntityNotFoundException($"No se encontró el proyecto con id {proyectData.idProject}");
         var snapshot = proyectFound.Functions!
@@ -92,7 +94,7 @@ public class ProjectsService : IProyectsService
         var newChangeHistory = new ChangeHistory
         {
             ProyectId = proyectFound.Id,
-            EmployeeId = 8,
+            EmployeeId = employeeFound.Id,
             FunctionsSnapshot = JsonSerializer.Serialize(snapshot),
             Budget = proyectFound.Budget,
             ChangeDate = DateTime.UtcNow,

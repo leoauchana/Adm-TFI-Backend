@@ -71,7 +71,9 @@ public class ProjectsController : ControllerBase
     [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> UpdateProyect([FromBody] ProjectDto.RequestUpdate proyectData)
     {
-        var proyectUpdated = await _proyectsService.UpdateProyect(proyectData);
+        var idEmployee = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (idEmployee == null) return BadRequest("No se pudo obtener el id del empleado.");
+        var proyectUpdated = await _proyectsService.UpdateProyect(proyectData, idEmployee);
         if (proyectUpdated == null) return BadRequest("Hubo un error al actualizar el proyecto.");
         return Ok(new
         {
