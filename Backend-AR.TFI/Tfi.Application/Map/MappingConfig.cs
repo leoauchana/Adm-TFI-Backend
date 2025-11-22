@@ -163,11 +163,13 @@ public static class MappingConfig
 
         TypeAdapterConfig<Function, FunctionsDto.Response>
             .NewConfig()
+            .Map(dest => dest.idFunction, src => src.Id)
             .Map(dest => dest.functionName, src => src.Name)
             .Map(dest => dest.functionDescription, src => src.Description);
 
         TypeAdapterConfig<Function, FunctionsDto.ResponseById>
             .NewConfig()
+            .Map(dest => dest.idFunction, src => src.Id)
             .Map(dest => dest.functionName, src => src.Name)
             .Map(dest => dest.functionDescription, src => src.Description)
             .Map(dest => dest.tasks, src => src.Tasks);

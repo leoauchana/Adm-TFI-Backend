@@ -80,7 +80,7 @@ public class ProjectsService : IProyectsService
     }
     public async Task<ProjectDto.Response?> UpdateProyect(ProjectDto.RequestUpdate proyectData, string idEmployee)
     {
-        if ((proyectData.newFunctions.Count <= 0)) throw new BusinessConflictException("Se deben agregar las funcionalidades correspondientes.");
+        if (proyectData.newFunctions.Count <= 0) throw new BusinessConflictException("Se deben agregar las funcionalidades correspondientes.");
         var employeeFound = await _repository.ObtenerPorId<Employee>(int.Parse(idEmployee));
         if (employeeFound == null) throw new EntityNotFoundException($"El empleado autenticado con id {idEmployee} no se encontro.");
         var proyectFound = await _repository.ObtenerPorId<Proyect>(proyectData.idProject, nameof(Proyect.Functions));

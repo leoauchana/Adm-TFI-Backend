@@ -3,6 +3,6 @@
 public class FunctionsDto
 {
     public record Request(string functionName, string functionDescription);
-    public record Response(string functionName, string functionDescription);
-    public record ResponseById(string functionName, string functionDescription, List<TaskDto.Response>? tasks);
+    public record Response(int idFunction, string functionName, string functionDescription);
+    public record ResponseById(int idFunction, string functionName, string functionDescription, List<TaskDto.Response>? tasks);
 }
