@@ -54,7 +54,7 @@ public class ProjectsController : ControllerBase
         });
     }
 
-    [HttpPatch("deleteProyect/{idProyect}")]
+    [HttpPatch("deleteProject/{idProyect}")]
     [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> DeleteProyect(int idProyect)
     {
