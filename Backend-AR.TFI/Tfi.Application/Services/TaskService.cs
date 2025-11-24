@@ -32,7 +32,7 @@ public class TaskService : ITaskService
     {
         var employeeFound = await _repository.ObtenerPorId<Employee>(int.Parse(idEmployee));
         if (employeeFound == null) throw new EntityNotFoundException($"El empleado autenticado no se encontro.{idEmployee}");
-        var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask);
+        var taskFound = await _repository.ObtenerPorId<Domain.Entities.Task>(idTask, nameof(Domain.Entities.Task.Function));
         if (taskFound == null) throw new EntityNotFoundException($"La tarea de id {idTask} no se encontró.");
         if (taskFound.State == StateProgress.Completed && taskFound.ImplementationStatus == StateTask.Completed) throw new BusinessConflictException("La tarea ya esta completada.");
         if (employeeFound.RolEmpleado == EmployeeRol.Developer && taskFound.ImplementationStatus == StateTask.Development)
@@ -52,6 +52,7 @@ public class TaskService : ITaskService
             taskFound.State = StateProgress.Completed;
         }
         await _repository.Actualizar(taskFound);
+        await ValidateStateProject(taskFound.Function!.ProyectId);
         return true;
     }
     public async Task<bool> DeleteTask(int idTask)
@@ -61,5 +62,14 @@ public class TaskService : ITaskService
         taskFound.State = StateProgress.Cancelled;
         await _repository.Actualizar(taskFound);
         return true;
+    }
+    private async System.Threading.Tasks.Task ValidateStateProject(int idProject)
+    {
+        var project = await _repository.ObtenerPorId<Proyect>(idProject, nameof(Proyect.Functions), "Functions.Tasks");
+        if (project == null) throw new EntityNotFoundException("El proyecto no se encontró.");
+        project.Functions = await _repository.Listar<Function>(f => f.ProyectId == project.Id, nameof(Function.Tasks));
+        var allFunctionsCompleted = project.Functions != null && project.Functions.All(f => f.IsCompleted());
+        project.State = allFunctionsCompleted ? StateProgress.Completed : project.State;
+        await _repository.Actualizar(project);
     }
 }

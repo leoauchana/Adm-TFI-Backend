@@ -22,7 +22,7 @@ public class DashboardService : IDashboardService
     {
         var projectsRegistered = await GetProjectsWithFuctionsAndTasks();
         var result = new List<DashboardDto.ResponseProgressPercentage>();
-        foreach (var project in projectsRegistered)
+        foreach (var project in projectsRegistered.Where(p => p.State == StateProgress.Progress))
         {
             var progress = CalculateProjectProgress(project);
             var progressDto = new DashboardDto.ResponseProgressPercentage
@@ -40,8 +40,9 @@ public class DashboardService : IDashboardService
         if (teamRegistered == null) throw new NullException("No hay equipos registrados.");
         return teamRegistered.Select(t => new DashboardDto.ResponseTeamWithPerformance(
             t.Number,
-            t.Proyects!.Count,
-            t.Proyects.Where(p => p.State == StateProgress.Completed).ToList().Count
+            t.Proyects != null ? t.Proyects.Where(p => p.State != StateProgress.Cancelled).ToList()!.Count : 0,
+            t.Proyects != null ? t.Proyects.Where(p => p.State == StateProgress.Completed).ToList().Count : 0,
+            t.Proyects != null ? t.Proyects.Where(p => p.State == StateProgress.Progress).ToList().Count : 0
             )).ToList();
     }
     private async Task<List<Proyect>> GetProjectsWithFuctionsAndTasks()
