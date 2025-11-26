@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Tfi.Application.Interfaces;
 using Tfi.Application.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Tfi.Application.Validators;
 
 namespace Tfi.Application;
 
@@ -20,6 +22,7 @@ public static class ServicesExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDashboardService, DashboardService>();
         services.AddScoped<IResourcesService, ResourcesService>();
+        services.AddValidatorsFromAssemblyContaining<TaskDtoValidator>();
         services.AddAuthentication(config =>
         {
             config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

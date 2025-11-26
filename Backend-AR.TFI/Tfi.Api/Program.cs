@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -65,6 +66,7 @@ namespace Tfi.Api
                         );
                 });
             });
+            builder.Services.AddFluentValidationAutoValidation();
 
             var app = builder.Build();
 
