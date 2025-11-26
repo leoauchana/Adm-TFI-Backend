@@ -138,7 +138,7 @@ public class ARContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.ToTable("recursos");
-            entity.Property(e => e.Description).HasMaxLength(45).HasColumnName("descripcionRecurso");
+            entity.Property(e => e.Description).HasMaxLength(100).HasColumnName("descripcionRecurso");
         });
     }
     private void ConfigureTarea(ModelBuilder modelBuilder)
@@ -147,7 +147,7 @@ public class ARContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.ToTable("tareas");
-            entity.Property(e => e.Description).HasMaxLength(45).HasColumnName("descripcionTarea");
+            entity.Property(e => e.Description).HasMaxLength(150).HasColumnName("descripcionTarea");
             entity.Property(e => e.State).HasColumnName("estadoTarea");
             entity.Property(e => e.EndDate).HasColumnName("fechaFinTarea");
             entity.Property(e => e.InitialDate).HasColumnName("fechaInicioTarea");
